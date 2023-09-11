@@ -1,6 +1,9 @@
 package com.talhakara.instagram.View
 
 
+import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -28,6 +31,12 @@ fun Goster() {
 @Composable
 fun AnaSayfa() {
     var selectedTab by remember { mutableStateOf(0) }
+    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        if (uri != null) {
+            // Seçilen fotoğrafın işlenmesini burada yapabilirsiniz.
+            // Örneğin, bu Uri'yi bir ImageView'e veya başka bir görsel bileşenine yerleştirebilirsiniz.
+        }
+    }
 
     Scaffold(
         bottomBar = {
@@ -63,7 +72,11 @@ fun AnaSayfa() {
                 )
                 NavigationBarItem(
                     selected = selectedTab == 2,
-                    onClick = { selectedTab = 2 },
+                    onClick = {
+                        selectedTab = 2
+                        // Galeriyi açmak için ActivityResultLauncher'ı başlatın
+                        launcher.launch("image/*") // Burada "image/*" tüm resim türlerini seçmenizi sağlar. İhtiyaca göre ayarlayabilirsiniz.
+                    },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Add,

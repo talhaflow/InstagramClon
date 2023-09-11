@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 
@@ -38,10 +39,39 @@ import com.google.firebase.ktx.Firebase
 fun kayitOl(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var kullaniciAdi by remember { mutableStateOf("") }
     val context = LocalContext.current // Bu satır, compose içindeki bağlamı alır. Gerekirse uygun şekilde ayarlayın.
 
     // Firebase Authentication nesnesini alın
     val auth = Firebase.auth
+
+    fun saveUsernameToFirebase(username: String, kullaniciAdi: String) {
+        val database = Firebase.database
+        val userRef = database.getReference("users")
+
+        // Kullanıcı adını kullanarak bir veri oluşturun
+        val user = hashMapOf(
+            "username" to kullaniciAdi  // Kullanıcı adını kullaniciAdi olarak kaydedin
+        )
+
+        // Kullanıcı verisini Firebase veritabanına ekleyin
+        userRef.child(username.replace(".", "_")) // E-posta adresi içeriyorsa '.' karakterini '_'' ile değiştirin
+            .setValue(user)
+            .addOnSuccessListener {
+                // Kullanıcı adı başarıyla kaydedildiğinde yapılacak işlemler
+                // Örneğin, ana sayfaya yönlendirme yapabilirsiniz
+                navController.navigate("anaSayfa")
+            }
+            .addOnFailureListener { exception ->
+                // Hata durumunda kullanıcıyı bilgilendirebilirsiniz
+                Toast.makeText(
+                    context,
+                    "Kullanıcı adı kaydetme başarısız oldu. Hata: ${exception.message}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+    }
+
 
     Column(
         modifier = Modifier
@@ -55,11 +85,22 @@ fun kayitOl(navController: NavController) {
             text = "Instagram Kayıt ol",
             style = TextStyle(fontSize = 24.sp, fontWeight = FontWeight.Bold)
         )
+        Spacer(modifier = Modifier.height(8.dp))
+        //kullanıcı adı alma
+        OutlinedTextField(
+            value = kullaniciAdi,
+            onValueChange = { kullaniciAdi = it },
+            placeholder = { Text("Kullanıcı Adı") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp),
+            shape = RoundedCornerShape(16.dp)
+        )
 
         OutlinedTextField(
             value = username,
             onValueChange = { username = it },
-            placeholder = { Text("Kullanıcı Adı") },
+            placeholder = { Text("Mail") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(8.dp),
@@ -82,15 +123,15 @@ fun kayitOl(navController: NavController) {
         // Kayıt Ol Button
         Button(
             onClick = {
-                if(username.isEmpty()||password.isEmpty()){
+                if (username.isEmpty() || password.isEmpty() || kullaniciAdi.isEmpty()) {
                     Toast.makeText(context, "Zorunlu boşlukları doldurun", Toast.LENGTH_SHORT).show()
-                }else{
+                } else {
                     // Kullanıcıyı Firebase'e kaydet
                     auth.createUserWithEmailAndPassword(username, password)
                         .addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                // Kayıt başarılıysa, kullanıcıyı giriş yapma sayfasına yönlendirin
-                                navController.navigate("anaSayfa")
+                                // Kayıt başarılıysa, kullanıcı adını Firebase veritabanına kaydedin
+                                saveUsernameToFirebase(username, kullaniciAdi)
                             } else {
                                 // Kayıt başarısızsa, hata mesajını gösterin
                                 Toast.makeText(
@@ -100,9 +141,7 @@ fun kayitOl(navController: NavController) {
                                 ).show()
                             }
                         }
-
                 }
-
             },
             modifier = Modifier
                 .fillMaxWidth()
@@ -110,6 +149,12 @@ fun kayitOl(navController: NavController) {
         ) {
             Text(text = "Kayıt ol")
         }
+
     }
+
+
+
 }
+
+
 
