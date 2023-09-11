@@ -76,7 +76,10 @@ fun SayfaGecis() {
             kayitOl(navController = navController)
         }
         composable("anaSayfa") { // Değiştirdim: Aynı hedef ismi kullanılamaz
-            AnaSayfa()
+            AnaSayfa(navController = navController)
+        }
+        composable("paylasSayfa"){
+            PaylasimYapma(navController = navController)
         }
     }
 }

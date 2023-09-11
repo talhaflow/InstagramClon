@@ -1,11 +1,7 @@
 package com.talhakara.instagram.View
 
 
-import android.net.Uri
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
@@ -15,28 +11,23 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.talhakara.instagram.ui.theme.InstagramTheme
 
 @Preview(showBackground = true)
 @Composable
 fun Goster() {
     InstagramTheme {
-        AnaSayfa()
+       // AnaSayfa()
     }
 }
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AnaSayfa() {
+fun AnaSayfa(navController: NavController) {
     var selectedTab by remember { mutableStateOf(0) }
-    val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
-        if (uri != null) {
-            // Seçilen fotoğrafın işlenmesini burada yapabilirsiniz.
-            // Örneğin, bu Uri'yi bir ImageView'e veya başka bir görsel bileşenine yerleştirebilirsiniz.
-        }
-    }
+
 
     Scaffold(
         bottomBar = {
@@ -74,8 +65,8 @@ fun AnaSayfa() {
                     selected = selectedTab == 2,
                     onClick = {
                         selectedTab = 2
-                        // Galeriyi açmak için ActivityResultLauncher'ı başlatın
-                        launcher.launch("image/*") // Burada "image/*" tüm resim türlerini seçmenizi sağlar. İhtiyaca göre ayarlayabilirsiniz.
+                        navController.navigate("paylasSayfa")
+
                     },
                     icon = {
                         Icon(
