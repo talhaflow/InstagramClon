@@ -32,11 +32,13 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.talhakara.instagram.ViewModel.PostViewModel
 import com.talhakara.instagram.ui.theme.InstagramTheme
 
 class MainActivity : ComponentActivity() {
@@ -68,6 +70,7 @@ fun GreetingPreview() {
 @Composable
 fun SayfaGecis() {
     var navController = rememberNavController()
+    val postViewModel = viewModel<PostViewModel>()
     NavHost(navController = navController, startDestination = "loginSayfa") {
         composable("loginSayfa") {
             LoginScreen(navController = navController)
@@ -76,7 +79,7 @@ fun SayfaGecis() {
             kayitOl(navController = navController)
         }
         composable("anaSayfa") { // Değiştirdim: Aynı hedef ismi kullanılamaz
-            AnaSayfa(navController = navController)
+            AnaSayfa(navController = navController, viewModel =postViewModel )
         }
         composable("paylasSayfa"){
             PaylasimYapma(navController = navController)
@@ -91,6 +94,12 @@ fun LoginScreen(navController: NavController) {
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     val context = LocalContext.current // Bu satır, compose içindeki bağlamı alır. Gerekirse uygun şekilde ayarlayın.
+
+
+   /* if (currentUser != null) {
+        // Kullanıcı oturum açık ise anaSayfa'ya git
+        navController.navigate("anaSayfa")
+    }*/
 
     Column(
         modifier = Modifier

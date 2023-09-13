@@ -164,4 +164,6 @@ fun MyImageComponent(url: String) {
     )
 }
 
-data class Post(val kullaniciAdi:String,var aciklama:String,var fotoUrl:String)
+data class Post(val kullaniciAdi: String, var aciklama: String, var fotoUrl: String) {
+    constructor() : this("", "", "") // No-argument constructor eklendi
+}
