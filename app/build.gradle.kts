@@ -49,7 +49,9 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+
 }
+
 
 dependencies {
 
@@ -62,9 +64,9 @@ dependencies {
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
     implementation ("androidx.compose.material3:material3:1.1.1")
-    implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
+    implementation("com.google.firebase:firebase-auth-ktx:22.1.2")
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
-    implementation("com.google.firebase:firebase-firestore-ktx:24.7.1")
+    implementation("com.google.firebase:firebase-firestore-ktx:24.8.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
@@ -77,7 +79,9 @@ dependencies {
     implementation("com.google.firebase:firebase-analytics-ktx")
     implementation ("androidx.navigation:navigation-compose:2.7.2")
     implementation("io.coil-kt:coil-compose:1.4.0")
-    
+   // implementation("com.github.krokyz:ucropnedit:2.2.6-2")
+  //  implementation("com.github.yalantis:ucrop:2.2.6")
+
 
 }
 

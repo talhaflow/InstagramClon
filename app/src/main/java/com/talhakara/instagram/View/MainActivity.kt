@@ -84,6 +84,13 @@ fun SayfaGecis() {
         composable("paylasSayfa"){
             PaylasimYapma(navController = navController)
         }
+        composable("DmSayfa"){
+            DmSayfasi(navController = navController)
+        }
+        composable("ProfilSayfa"){
+            ProfilSayfasi(navController = navController)
+        }
+
     }
 }
 
@@ -96,10 +103,12 @@ fun LoginScreen(navController: NavController) {
     val context = LocalContext.current // Bu satır, compose içindeki bağlamı alır. Gerekirse uygun şekilde ayarlayın.
 
 
-   /* if (currentUser != null) {
-        // Kullanıcı oturum açık ise anaSayfa'ya git
+    val currentUser = FirebaseAuth.getInstance().currentUser // Check if a user is already signed in.
+
+    if (currentUser != null) {
+        // If a user is already signed in, navigate them directly to the main page.
         navController.navigate("anaSayfa")
-    }*/
+    }
 
     Column(
         modifier = Modifier

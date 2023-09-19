@@ -1,6 +1,11 @@
 package com.talhakara.instagram.View
 
+import android.net.Uri
+import android.widget.Toast
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -18,23 +23,15 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import androidx.compose.foundation.Image
 import coil.compose.rememberImagePainter
-import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
 import java.util.UUID
-import android.net.Uri
-import android.widget.Toast
-import androidx.activity.compose.rememberLauncherForActivityResult
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.foundation.background
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 
 @Composable
 fun PaylasimYapma(navController: NavController) {
@@ -49,6 +46,10 @@ fun PaylasimYapma(navController: NavController) {
             fotoUrl = uri.toString()
         }
     }
+
+
+
+
 
     Column(
         modifier = Modifier
@@ -124,7 +125,18 @@ fun PaylasimYapma(navController: NavController) {
         }
 
     }
+
 }
+/*
+fun startImageCrop(sourceUri: Uri) {
+    val destinationUri = Uri.fromFile(File(context.cacheDir, "${UUID.randomUUID()}.jpg"))
+
+    UCrop.of(sourceUri, destinationUri)
+        .withAspectRatio(1f, 1f) // İhtiyaca göre en boy oranını ayarlayın
+        .start(context, UCropActivity::class.java)
+}*/
+
+
 
 fun savePostToFirebase(post: Post) {
     val database = Firebase.database
