@@ -28,6 +28,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -40,15 +47,52 @@ fun PaylasimYapma(navController: NavController) {
     var fotoUrl by remember { mutableStateOf("") }
     val storageRef = Firebase.storage.reference
     val context = LocalContext.current
+    val auth = Firebase.auth
+    // Veritabanı referansını alın
+    val database: FirebaseDatabase = FirebaseDatabase.getInstance()
+    val userRef: DatabaseReference = database.getReference("users")
+
+    // Güncel kullanıcıyı alın
+    val currentUser: FirebaseUser? = auth.currentUser
+
+// Kullanıcı oturum açmışsa ve bir FirebaseUser nesnesi dönüyorsa, e-posta adresini alabilirsiniz
+    if (currentUser != null) {
+        val userGmail = currentUser.email
+        if (userGmail != null) {
+            // E-posta adresini kullanabilirsiniz
+            // Örnek: Log.d("E-posta Adresi", email)
+            // Kullanıcı adını çekmek için ValueEventListener kullanın
+            val usernameRef: DatabaseReference = userRef.child(userGmail.replace(".", "_")) // Kullanıcı adını almak istediğiniz kullanıcının veritabanı referansını oluşturun
+            usernameRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (dataSnapshot.exists()) {
+                        kullaniciAdi = dataSnapshot.child("username").value.toString()
+                        // Kullanıcı adını kullanabilirsiniz
+                        // Örnek: Log.d("Kullanıcı Adı", kullaniciAdi)
+                    } else {
+                        // Kullanıcı bulunamadı
+                    }
+                }
+
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Hata durumunda burası çalışır
+                }
+            })
+
+        } else {
+            // E-posta adresi yoksa
+        }
+    } else {
+        // Kullanıcı oturum açmamışsa
+    }
+
+
 
     val launcher = rememberLauncherForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
         if (uri != null) {
             fotoUrl = uri.toString()
         }
     }
-
-
-
 
 
     Column(
@@ -127,15 +171,6 @@ fun PaylasimYapma(navController: NavController) {
     }
 
 }
-/*
-fun startImageCrop(sourceUri: Uri) {
-    val destinationUri = Uri.fromFile(File(context.cacheDir, "${UUID.randomUUID()}.jpg"))
-
-    UCrop.of(sourceUri, destinationUri)
-        .withAspectRatio(1f, 1f) // İhtiyaca göre en boy oranını ayarlayın
-        .start(context, UCropActivity::class.java)
-}*/
-
 
 
 fun savePostToFirebase(post: Post) {

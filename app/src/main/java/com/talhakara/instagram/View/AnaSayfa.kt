@@ -171,7 +171,6 @@ fun PostItem(post: Post) {
             .padding(8.dp)
     ) {
         Text(text = post.kullaniciAdi, fontWeight = FontWeight.Bold)
-        Text(text = post.aciklama)
         Image(
             painter = rememberImagePainter(data = post.fotoUrl),
             contentDescription = null,
@@ -179,5 +178,7 @@ fun PostItem(post: Post) {
                 .fillMaxWidth()
                 .height(200.dp)
         )
+        Text(text = post.aciklama)
+
     }
 }
