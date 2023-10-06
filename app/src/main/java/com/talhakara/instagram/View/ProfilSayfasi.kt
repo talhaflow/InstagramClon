@@ -15,6 +15,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.talhakara.instagram.ViewModel.ProfilViewModel
@@ -29,7 +31,17 @@ fun  ProfilSayfasi(navController: NavController, viewModel: ProfilViewModel) {
     LaunchedEffect(Unit) {
         viewModel.posts
     }
+    val state = rememberSwipeRefreshState(isRefreshing = false)
 
+
+    SwipeRefresh(
+        state = state,
+        onRefresh = {
+            // Yenileme mantığını burada uygulayabilirsiniz, örneğin ViewModel'den verileri yeniden yükleyebilirsiniz
+            // viewModel.refreshData()
+            state.isRefreshing = false
+        }
+    ) {
 
     Scaffold(
 
@@ -45,4 +57,4 @@ fun  ProfilSayfasi(navController: NavController, viewModel: ProfilViewModel) {
             }
         }
     }
-}
+}}
