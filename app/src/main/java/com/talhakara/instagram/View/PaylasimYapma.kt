@@ -143,9 +143,16 @@ fun PaylasimYapma(navController: NavController) {
                     uploadTask.addOnSuccessListener { taskSnapshot ->
                         storageReference.downloadUrl.addOnSuccessListener { uri ->
                             val indirilenFotoUrl = uri.toString()
+
+                            // Kullanıcı adını kullanarak yeni bir gönderi oluşturun
                             val yeniPost = Post(kullaniciAdi, aciklama, indirilenFotoUrl)
+
+                            // Firebase'e gönderiyi kaydetme işlemini çağırın
                             savePostToFirebase(yeniPost)
+
+                            // Ana sayfaya yönlendirin
                             navController.navigate("AnaSayfa")
+
                             // Firebase yükleme başarılı oldu, Toast mesajı göster
                             Toast.makeText(context, "Fotoğraf başarıyla yüklendi!", Toast.LENGTH_SHORT).show()
                         }.addOnFailureListener { exception ->
@@ -167,6 +174,7 @@ fun PaylasimYapma(navController: NavController) {
         ) {
             Text(text = "Paylaş")
         }
+
 
     }
 

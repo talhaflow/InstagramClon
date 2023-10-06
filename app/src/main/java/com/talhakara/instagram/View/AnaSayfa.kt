@@ -44,27 +44,6 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
     LaunchedEffect(Unit) {
         viewModel.posts
     }
-/*TopAppBar(
-                title = {
-                    Text(text = "Exit") // İstediğiniz başlık metnini kullanabilirsiniz
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            auth.signOut()
-                            navController.navigate("loginSayfa")
-
-                        }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ExitToApp,
-                            contentDescription = "Çıkış Yap"
-                        )
-                    }
-                },
-                modifier = Modifier.fillMaxWidth()
-            )*/
-
 
 
     Scaffold(
@@ -77,7 +56,9 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
 
                 NavigationBarItem(
                     selected = selectedTab == 0,
-                    onClick = { selectedTab = 0 },
+                    onClick = { selectedTab = 0
+                        navController.navigate("anaSayfa")
+                              },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Search,
@@ -90,7 +71,9 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
                 )
                 NavigationBarItem(
                     selected = selectedTab == 1,
-                    onClick = { selectedTab = 1 },
+                    onClick = { selectedTab = 1
+                        navController.navigate("DmSayfa")
+                    },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Send,
@@ -120,7 +103,10 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
                 )
                 NavigationBarItem(
                     selected = selectedTab == 3,
-                    onClick = { selectedTab = 3 },
+                    onClick = { selectedTab = 3
+                    navController.navigate("ProfilSayfa")
+
+                    },
                     icon = {
                         Icon(
                             imageVector = Icons.Default.Person,
@@ -128,7 +114,7 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
                         )
                     },
                     label = {
-                        Text(text = "Hesabım")
+                        Text(text = "Profil")
                     }
                 )
 
@@ -143,7 +129,7 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
                         )
                     },
                     label = {
-                        Text(text = "Hesabım")
+                        Text(text = "Çıkış")
                     }
                 )
 
@@ -163,6 +149,7 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
         }
     }
 }
+//post görünümü buradan değiştir
 @Composable
 fun PostItem(post: Post) {
     Column(
