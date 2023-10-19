@@ -67,6 +67,8 @@ dependencies {
     implementation("com.google.firebase:firebase-database-ktx:20.2.2")
     implementation("com.google.firebase:firebase-firestore-ktx:24.8.0")
     implementation("com.google.firebase:firebase-storage-ktx:20.2.1")
+    implementation("com.google.firebase:firebase-messaging-ktx:23.2.1")
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -81,7 +83,22 @@ dependencies {
 
     implementation ("androidx.compose.material3:material3:1.2.0-alpha09")
 
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+
     implementation ("com.google.accompanist:accompanist-swiperefresh:0.24.13-rc")
+
+    implementation ("com.google.firebase:firebase-firestore:24.8.1")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //Coroutines
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.1")
+
+
+
 
 
 

@@ -1,9 +1,13 @@
 package com.talhakara.instagram.View
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -31,12 +35,14 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.FirebaseAuth
+import com.talhakara.instagram.ViewModel.DmViewModel
 import com.talhakara.instagram.ViewModel.PostViewModel
 import com.talhakara.instagram.ViewModel.ProfilViewModel
 import com.talhakara.instagram.ui.theme.InstagramTheme
@@ -57,6 +63,37 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+
+    // Declare the launcher at the top of your Activity/Fragment:
+    private val requestPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission(),
+    ) { isGranted: Boolean ->
+        if (isGranted) {
+            // FCM SDK (and your app) can post notifications.
+        } else {
+            // TODO: Inform user that that your app will not show notifications.
+        }
+    }
+
+    private fun askNotificationPermission() {
+        // This is only necessary for API level >= 33 (TIRAMISU)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) ==
+                PackageManager.PERMISSION_GRANTED
+            ) {
+                // FCM SDK (and your app) can post notifications.
+            } else if (shouldShowRequestPermissionRationale(Manifest.permission.POST_NOTIFICATIONS)) {
+                // TODO: display an educational UI explaining to the user the features that will be enabled
+                //       by them granting the POST_NOTIFICATION permission. This UI should provide the user
+                //       "OK" and "No thanks" buttons. If the user selects "OK," directly request the permission.
+                //       If the user selects "No thanks," allow the user to continue without notifications.
+            } else {
+                // Directly ask for the permission
+                requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
+            }
+        }
+    }
+
 }
 
 
@@ -72,6 +109,7 @@ fun SayfaGecis() {
     var navController = rememberNavController()
     val postViewModel = viewModel<PostViewModel>()
     val ProfilViewModel=viewModel<ProfilViewModel>()
+    var DmViewModel=viewModel<DmViewModel>()
     NavHost(navController = navController, startDestination = "loginSayfa") {
         composable("loginSayfa") {
             LoginScreen(navController = navController)
@@ -86,11 +124,18 @@ fun SayfaGecis() {
             PaylasimYapma(navController = navController)
         }
         composable("DmSayfa"){
-            DmSayfasi(navController = navController)
+            DmSayfasi(navController = navController, viewModel = DmViewModel)
         }
         composable("ProfilSayfa"){
             ProfilSayfasi(navController = navController,viewModel =ProfilViewModel)
         }
+        composable("DmAtmaSayfa"){
+            DmAtmaSayfa(navController = navController)
+        }
+        composable("SohbetSayfa"){
+            SohbetSayfa(navController = navController)
+        }
+
 
     }
 }
