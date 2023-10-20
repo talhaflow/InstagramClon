@@ -7,16 +7,16 @@ Bu repo, Instagram benzeri bir sosyal medya uygulamasının temel özelliklerini
 ![Giriş Yap](SS/girisYap.jpeg)
 *Giriş Yap*
 
-![Kayıt Ol](kayitOl.jpeg)
+![Kayıt Ol](SS/kayitOl.jpeg)
 *Kayıt Ol*
 
-![Keşfet](kesfet.jpeg)
+![Keşfet](SS/kesfet.jpeg)
 *Keşfet*
 
-![Gönderi Paylaş](postPaylas.jpeg)
+![Gönderi Paylaş](SS/postPaylas.jpeg)
 *Gönderi Paylaş*
 
-![Profil](profil.jpeg)
+![Profil](SS/profil.jpeg)
 *Profil*
 
 ## Klonun Genel Özellikleri
