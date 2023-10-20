@@ -4,33 +4,35 @@ Bu repo, Instagram benzeri bir sosyal medya uygulamasının temel özelliklerini
 
 ## Ekran Görüntüleri
 
+
+##Giriş Yap
 ![Giriş Yap](SS/girisYap.jpeg)
-*Giriş Yap*
+
 
 ![Kayıt Ol](SS/kayitOl.jpeg)
-*Kayıt Ol*
+##Kayıt Ol
 
 ![Keşfet](SS/kesfet.jpeg)
-*Keşfet*
+##Keşfet
 
 ![Gönderi Paylaş](SS/postPaylas.jpeg)
-*Gönderi Paylaş*
+##Gönderi Paylaş
 
 ![Profil](SS/profil.jpeg)
-*Profil*
+##Profil
 
 ## Klonun Genel Özellikleri
 
 - Giriş yapma ve kayıt olma
 - Keşfet bölümü
-- Gönderi paylaşma ve beğenme
-- Kullanıcı profili görüntüleme ve düzenleme
+- Gönderi paylaşma 
+- Kullanıcı profili görüntüleme 
 
 ## Nasıl Kullanılır
 
-1. Repo'yu bilgisayarınıza klonlayın: `git clone https://github.com/kullaniciadi/repo-adı.git`
+1. Repo'yu bilgisayarınıza klonlayın:
 2. Uygulamayı yerel ortamınıza kurun.
-3. Uygulamayı çalıştırın ve tarayıcınızda `http://localhost:3000` adresini ziyaret edin.
+3. Uygulamayı çalıştırın ve tarayıcınızda 
 
 ## Katkıda Bulunma
 
@@ -42,6 +44,4 @@ Eğer projeye katkıda bulunmak isterseniz, lütfen aşağıdaki adımları izle
 4. Değişikliklerinizi kendi fork dalınıza (branch) gönderin: `git push origin yenidall-adı`
 5. Pull isteği (pull request) oluşturun ve değişikliklerinizi ana repoya eklemek için bekleyin.
 
-## Lisans
 
-Bu proje MIT Lisansı altında lisanslanmıştır. Daha fazla bilgi için [Lisans Dosyası](LICENSE) dosyasına göz atın.
