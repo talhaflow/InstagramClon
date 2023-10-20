@@ -169,20 +169,33 @@ fun AnaSayfa(navController: NavController, viewModel: PostViewModel) {
 //post görünümü buradan değiştir
 @Composable
 fun PostItem(post: Post) {
-    Column(
+    Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(8.dp),
+        elevation = CardDefaults.cardElevation(4.dp), // Gönderiye gölge eklemek isterseniz elevation'ı ayarlayabilirsiniz.
     ) {
-        Text(text = post.kullaniciAdi, fontWeight = FontWeight.Bold)
-        Image(
-            painter = rememberImagePainter(data = post.fotoUrl),
-            contentDescription = null,
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(200.dp)
-        )
-        Text(text = post.aciklama)
-
+                .padding(16.dp)
+        ) {
+            Text(
+                text = post.kullaniciAdi,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 8.dp)
+            )
+            Image(
+                painter = rememberImagePainter(data = post.fotoUrl),
+                contentDescription = null,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+            )
+            Spacer(modifier = Modifier.height(16.dp)) // Görsel ile açıklama arasına boşluk eklemek için Spacer kullanabilirsiniz.
+            Text(text = post.aciklama)
+        }
     }
 }
+
+
