@@ -4,7 +4,7 @@ Bu repo, Instagram benzeri bir sosyal medya uygulamasının temel özelliklerini
 
 ## Ekran Görüntüleri
 
-![Giriş Yap](girisYap.jpeg)
+![Giriş Yap](SS/girisYap.jpeg)
 *Giriş Yap*
 
 ![Kayıt Ol](kayitOl.jpeg)
